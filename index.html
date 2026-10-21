@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1d3a">
+<title>N.A.S Vidyapeeth | Monthly Fee Payment Portal</title>
+<style>
+:root{--navy:#0b1d3a;--blue:#173b72;--gold:#d6a83e;--gold-light:#f7e8b4;--ink:#172033;--muted:#64748b;--line:#dbe2ec;--bg:#f3f6fb;--white:#fff;--green:#147d54;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.wrap{width:min(1100px,100% - 28px);margin:24px auto 40px}
+.hero{display:flex;align-items:center;gap:20px;background:linear-gradient(120deg,#07162e,#173b72);color:#fff;padding:22px 26px;border:2px solid var(--gold);border-radius:18px;box-shadow:0 10px 30px #10274b22}
+.logo{width:112px;height:112px;object-fit:contain;background:#fff;border-radius:50%;border:3px solid var(--gold);flex-shrink:0}
+.hero h1{font-size:clamp(22px,4vw,34px);margin:0 0 5px;letter-spacing:.5px}.hero p{margin:0;color:#e8edf6}.motto{color:var(--gold-light)!important;font-weight:700;font-size:13px;letter-spacing:1.5px;margin-bottom:8px!important}
+.pill{display:inline-block;margin-top:12px;padding:5px 10px;border:1px solid #d6a83e88;border-radius:999px;color:#ffe9aa;font-size:12px;font-weight:700}
+.notice{margin:18px 0;padding:12px 15px;background:#fff8e7;border:1px solid #f0d38a;border-radius:10px;color:#684d12}
+.tabs{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}.tab{border:1px solid var(--line);background:#e8edf5;color:var(--navy);font-weight:700;padding:11px 15px;border-radius:9px;flex:1;min-width:150px}.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.card{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:clamp(18px,3vw,28px);box-shadow:0 8px 22px #10274b0b;margin-bottom:18px}
+.section-title{color:var(--navy);font-size:21px;margin:0 0 5px}.sub{color:var(--muted);margin:0 0 22px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.field{min-width:0}.field.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:#334155}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:var(--ink);outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #173b7218}
+input[readonly]{background:#f1f5f9;color:#475569}
+.month-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.month{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:8px;padding:9px;background:#fbfcfe;font-size:13px}.month input{width:auto;accent-color:var(--blue)}
+.fee-table{width:100%;border-collapse:collapse;margin-top:6px}.fee-table th,.fee-table td{text-align:left;padding:11px 8px;border-bottom:1px solid #e7ecf3}.fee-table th{font-size:12px;color:#475569;background:#f8fafc}.fee-table td:last-child,.fee-table th:last-child{text-align:right}.fee-table input{max-width:150px;text-align:right}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:17px}.sum-box{padding:13px;background:#f5f8fc;border:1px solid var(--line);border-radius:10px}.sum-box span{display:block;color:var(--muted);font-size:12px}.sum-box strong{display:block;font-size:20px;color:var(--navy);margin-top:3px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{border:0;border-radius:9px;padding:12px 17px;font-weight:700;background:var(--navy);color:#fff}.btn:hover{filter:brightness(1.12)}.btn.gold{background:var(--gold);color:#1b2433}.btn.outline{background:#fff;border:1px solid var(--line);color:var(--navy)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.tabpanel{display:none}.tabpanel.active{display:block}.error{display:none;color:var(--red);font-size:13px;margin-top:10px}.success{display:none;color:var(--green);background:#eaf8f0;border:1px solid #b7e4ca;padding:12px;border-radius:8px;margin-top:15px}
+.small{font-size:12px;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:12px;padding:8px}
+#receiptArea{display:none}.receipt{background:#fff;border:2px dashed #25344a;padding:22px;margin:0 0 18px;color:#111;break-inside:avoid}.receipt-head{text-align:center;border-bottom:2px solid var(--navy);padding-bottom:12px;margin-bottom:12px;position:relative}.receipt-head img{width:65px;height:65px;object-fit:contain;position:absolute;left:0;top:0}.receipt-head h2{margin:0;color:var(--navy);font-size:21px}.receipt-head p{margin:3px 0;font-size:12px}.copy-tag{display:inline-block;border:1px solid var(--navy);padding:2px 8px;font-size:11px;font-weight:700;margin-bottom:6px}
+.receipt-meta{display:grid;grid-template-columns:1fr 1fr;gap:7px 16px;font-size:13px;margin:12px 0}.receipt-meta div{border-bottom:1px dotted #aaa;padding:5px 0}.receipt table{width:100%;border-collapse:collapse;font-size:12px}.receipt th,.receipt td{border:1px solid #aaa;padding:7px;text-align:left}.receipt th:last-child,.receipt td:last-child{text-align:right}.receipt-total{text-align:right;font-size:16px;font-weight:800;margin-top:12px}.receipt-foot{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-top:30px;font-size:11px}.sign{border-top:1px solid #222;padding-top:5px;text-align:center;min-width:150px}
+@media(max-width:640px){.hero{align-items:flex-start;padding:16px;gap:13px}.logo{width:75px;height:75px}.hero h1{font-size:21px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.month-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.summary{grid-template-columns:1fr}.fee-table th,.fee-table td{padding:8px 5px;font-size:12px}.receipt-head img{position:static;display:block;margin:0 auto 8px}.receipt-meta{grid-template-columns:1fr}.receipt{padding:12px}}
+@media print{
+  html,body{width:105mm;height:148mm;margin:0!important;padding:0!important;background:#fff!important}
+  body{display:block!important;font-size:8px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{width:105mm!important;max-width:none!important;margin:0!important;padding:0!important}
+  .hero,.tabs,.notice,.card,.footer,.print-actions{display:none!important}
+  #receiptArea{display:block!important;width:105mm!important;margin:0!important;padding:0!important}
+  #receiptCopies{width:105mm!important;margin:0!important;padding:0!important}
+  .receipt{width:105mm!important;height:73mm!important;max-height:73mm!important;overflow:hidden!important;box-sizing:border-box!important;border:1px dashed #333!important;border-radius:0!important;margin:0!important;padding:3mm!important;page-break-inside:avoid!important;break-inside:avoid!important}
+  .receipt:last-child{border-top:0!important}
+  .receipt-head{padding-bottom:2mm!important;margin-bottom:2mm!important;border-bottom:1px solid #0b1d3a!important}
+  .receipt-head img{width:15mm!important;height:15mm!important}
+  .receipt-head h2{font-size:11px!important;margin:0!important}
+  .receipt-head p{font-size:7px!important;margin:0!important}
+  .copy-tag{font-size:7px!important;padding:0 3px!important;margin-bottom:1mm!important}
+  .receipt-meta{grid-template-columns:1fr 1fr!important;gap:0 3mm!important;font-size:7px!important;margin:2mm 0!important}
+  .receipt-meta div{padding:1mm 0!important}
+  .receipt table{font-size:7px!important}
+  .receipt th,.receipt td{padding:1mm!important}
+  .receipt-total{font-size:9px!important;margin-top:1.5mm!important}
+  .receipt p{font-size:6.5px!important;margin:1mm 0!important}
+  .receipt-foot{margin-top:3mm!important;font-size:6.5px!important}
+  .sign{min-width:30mm!important;padding-top:1mm!important}
+  @page{size:A6 portrait;margin:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <img class="logo" src="nas-vidyapeeth-logo.png" alt="N.A.S Vidyapeeth logo" onerror="this.style.display='none'">
+    <div>
+      <p class="motto">LEARN • GROW • SUCCEED</p>
+      <h1>N.A.S VIDYAPEETH</h1>
+      <p>Monthly Fee Payment Portal</p>
+      <p class="small" style="color:#dbe6f5">Basudebpur • New Jaldipur • Murshidabad, West Bengal</p>
+      <span class="pill">ACADEMIC YEAR 2026–27</span>
+    </div>
+  </header>
+
+  <div class="notice"><strong>Important:</strong> Submit fees only through the institution's officially confirmed payment process. A receipt generated by this demo is not proof that money was received.</div>
+
+  <nav class="tabs" aria-label="Portal sections">
+    <button class="tab active" data-tab="payment">Monthly Fee Entry</button>
+    <button class="tab" data-tab="receiptSearch">Receipt Lookup</button>
+    <button class="tab" data-tab="instructions">Payment Instructions</button>
+  </nav>
+
+  <section id="payment" class="tabpanel active card">
+    <h2 class="section-title">Student Fee Details</h2>
+    <p class="sub">Enter the student's details and select one or more months for payment.</p>
+    <form id="feeForm">
+      <div class="grid">
+        <div class="field"><label for="studentId">Student ID *</label><input id="studentId" required placeholder="e.g. NAS-2026-001"></div>
+        <div class="field"><label for="studentName">Student Full Name *</label><input id="studentName" required placeholder="Enter full name"></div>
+        <div class="field"><label for="roll">Roll Number *</label><input id="roll" required placeholder="Enter roll number"></div>
+        <div class="field"><label for="className">Class *</label><select id="className" required><option value="">Select class</option><option>Nursery</option><option>LKG</option><option>UKG</option><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option></select></div>
+        <div class="field"><label for="academicYear">Academic Year *</label><select id="academicYear" required><option>2026–27</option><option>2027–28</option><option>2025–26</option></select></div>
+        <div class="field"><label for="guardian">Parent / Guardian Name</label><input id="guardian" placeholder="Enter guardian name"></div>
+        <div class="field full"><label>Select Month(s) *</label><div class="month-grid" id="months"></div><p class="small">You may select multiple months. Select only the months you intend to pay for.</p></div>
+      </div>
+      <h3 class="section-title" style="font-size:17px;margin-top:25px">Fee Breakdown (INR)</h3>
+      <p class="sub">Enter the amounts approved by the institution. Values are not connected to a live student account.</p>
+      <table class="fee-table">
+        <thead><tr><th>Fee Type</th><th>Amount (₹)</th></tr></thead>
+        <tbody>
+          <tr><td>Monthly Tuition Fee (per month)</td><td><input type="number" id="monthlyFee" min="0" step="0.01" value="500"></td></tr>
+          <tr><td>Admission Fee</td><td><input type="number" id="admissionFee" min="0" step="0.01" value="0"></td></tr>
+          <tr><td>Examination Fee</td><td><input type="number" id="examFee" min="0" step="0.01" value="0"></td></tr>
+          <tr><td>Computer Fee</td><td><input type="number" id="computerFee" min="0" step="0.01" value="0"></td></tr>
+          <tr><td>Other Fee</td><td><input type="number" id="otherFee" min="0" step="0.01" value="0"></td></tr>
+          <tr><td>Late Fine</td><td><input type="number" id="lateFine" min="0" step="0.01" value="0"></td></tr>
+          <tr><td>Discount / Scholarship</td><td><input type="number" id="discount" min="0" step="0.01" value="0"></td></tr>
+        </tbody>
+      </table>
+      <div class="summary">
+        <div class="sum-box"><span>Months Selected</span><strong id="monthCount">0</strong></div>
+        <div class="sum-box"><span>Fee Before Discount</span><strong id="beforeDiscount">₹0.00</strong></div>
+        <div class="sum-box"><span>Total Payable</span><strong id="totalPayable">₹0.00</strong></div>
+      </div>
+      <div class="grid" style="margin-top:18px">
+        <div class="field"><label for="method">Payment Method *</label><select id="method" required><option value="">Select method</option><option value="Hand Cash">Hand Cash (Office Only)</option><option value="UPI / Bank Transfer">UPI / Bank Transfer (Verify with Office)</option></select></div>
+        <div class="field"><label for="reference">Payment Reference / Transaction ID</label><input id="reference" placeholder="Required for transfer, if available"></div>
+        <div class="field full"><label for="remarks">Remarks (Optional)</label><textarea id="remarks" rows="2" placeholder="Additional information"></textarea></div>
+      </div>
+      <p class="error" id="formError" role="alert"></p>
+      <div class="actions"><button class="btn gold" type="submit">Create Draft Receipt</button><button class="btn outline" type="button" id="resetBtn">Clear Form</button></div>
+      <p class="small">This standalone demo does not save records to a server and does not process or verify payments.</p>
+    </form>
+    <div class="success" id="createdMessage" role="status"></div>
+  </section>
+
+  <section id="receiptSearch" class="tabpanel card">
+    <h2 class="section-title">Receipt Lookup</h2><p class="sub">Look up a draft receipt created in this browser session only.</p>
+    <form id="lookupForm" class="grid">
+      <div class="field"><label for="lookupReceipt">Receipt Number</label><input id="lookupReceipt" required placeholder="e.g. NAS-MF-20261021-1234"></div>
+      <div class="field"><label for="lookupStudent">Student ID</label><input id="lookupStudent" required placeholder="Enter Student ID"></div>
+      <div class="field full"><button class="btn" type="submit">Find Receipt</button></div>
+    </form><p class="error" id="lookupError" role="alert"></p>
+  </section>
+
+  <section id="instructions" class="tabpanel card">
+    <h2 class="section-title">Payment Instructions</h2><p class="sub">Please read before submitting any fee.</p>
+    <ol>
+      <li>Confirm your Student ID, name, class and selected months with the school office.</li>
+      <li>Check the approved fee amount and any applicable discount or late fine.</li>
+      <li>For hand cash, pay at the authorized office and collect a verified receipt.</li>
+      <li>For UPI or bank transfer, use only payment details officially provided by the institution. Keep the transaction reference.</li>
+      <li>A transfer is not confirmed until the institution verifies it. Do not treat a draft receipt as proof of payment.</li>
+      <li>Keep your final receipt for future reference and contact the office if any detail is incorrect.</li>
+    </ol>
+    <div class="notice"><strong>Office contact:</strong> Add the institution's verified phone number and official payment details before publishing this page.</div>
+  </section>
+
+  <section id="receiptArea">
+    <div class="print-actions actions"><button class="btn gold" id="printBtn" type="button">Print / Save as PDF</button><button class="btn outline" id="backBtn" type="button">Back to Form</button></div>
+    <div id="receiptCopies"></div>
+  </section>
+  <footer class="footer">© 2026 N.A.S Vidyapeeth • Monthly Fee Portal • Keep your receipt safely.</footer>
+</div>
+<script>
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const monthHost = document.getElementById("months");
+months.forEach((m,i)=>{const label=document.createElement("label");label.className="month";const cb=document.createElement("input");cb.type="checkbox";cb.name="months";cb.value=m;cb.addEventListener("change",updateTotals);label.append(cb,document.createTextNode(m));monthHost.appendChild(label)});
+const money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+const num=id=>Math.max(0,Number(document.getElementById(id).value)||0);
+const selectedMonths=()=>[...document.querySelectorAll('input[name="months"]:checked')].map(x=>x.value);
+function updateTotals(){const count=selectedMonths().length;const tuition=num("monthlyFee")*count;const extras=num("admissionFee")+num("examFee")+num("computerFee")+num("otherFee")+num("lateFine");const gross=tuition+extras;const discount=Math.min(num("discount"),gross);document.getElementById("monthCount").textContent=count;document.getElementById("beforeDiscount").textContent=money(gross);document.getElementById("totalPayable").textContent=money(gross-discount)}
+["monthlyFee","admissionFee","examFee","computerFee","otherFee","lateFine","discount"].forEach(id=>document.getElementById(id).addEventListener("input",updateTotals));
+document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b===btn));document.querySelectorAll(".tabpanel").forEach(p=>p.classList.toggle("active",p.id===btn.dataset.tab));document.getElementById("receiptArea").style.display="none"}));
+const records=new Map();
+function val(id){return document.getElementById(id).value.trim()}
+function dateTime(){return new Date().toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"})}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function createReceipt(data,copy){
+const rows=[["Monthly Tuition Fee",money(data.tuition)],["Admission Fee",money(data.admissionFee)],["Examination Fee",money(data.examFee)],["Computer Fee",money(data.computerFee)],["Other Fee",money(data.otherFee)],["Late Fine",money(data.lateFine)],["Discount / Scholarship","−"+money(data.discount)]];
+return `<article class="receipt"><header class="receipt-head"><img src="nas-vidyapeeth-logo.png" alt="" onerror="this.style.display='none'"><span class="copy-tag">${copy}</span><h2>N.A.S VIDYAPEETH</h2><p>MONTHLY FEE RECEIPT</p><p>Basudebpur • New Jaldipur • Murshidabad, West Bengal</p></header>
+<div class="receipt-meta"><div><b>Receipt No:</b> ${escapeHtml(data.receiptNo)}</div><div><b>Date & Time:</b> ${escapeHtml(data.date)}</div><div><b>Student ID:</b> ${escapeHtml(data.studentId)}</div><div><b>Student Name:</b> ${escapeHtml(data.name)}</div><div><b>Roll Number:</b> ${escapeHtml(data.roll)}</div><div><b>Class:</b> ${escapeHtml(data.className)}</div><div><b>Academic Year:</b> ${escapeHtml(data.year)}</div><div><b>Months:</b> ${escapeHtml(data.months.join(", "))}</div><div><b>Payment Method:</b> ${escapeHtml(data.method)}</div><div><b>Transaction Reference:</b> ${escapeHtml(data.reference||"Not provided")}</div></div>
+<table><thead><tr><th>Fee Description</th><th>Amount</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</tbody></table>
+<div class="receipt-total">Total Payable: ${money(data.total)}</div><p><b>Payment Status:</b> DRAFT — NOT VERIFIED</p><p style="font-size:11px">This is a draft receipt generated by a browser demo. It is not proof of payment. Obtain an official verified receipt from the institution.</p><div class="receipt-foot"><span>Keep this receipt for your records.</span><div class="sign">Authorized Signature / Office Seal</div></div></article>`;
+}
+function showReceipt(data){document.getElementById("receiptCopies").innerHTML=createReceipt(data,"OFFICE COPY")+createReceipt(data,"STUDENT COPY");document.getElementById("receiptArea").style.display="block";document.getElementById("createdMessage").style.display="block";document.getElementById("createdMessage").textContent="Draft receipt created: "+data.receiptNo+" — payment has NOT been verified. Use Print / Save as PDF to print the draft.";document.getElementById("receiptArea").scrollIntoView({behavior:"smooth",block:"start"})}
+document.getElementById("feeForm").addEventListener("submit",e=>{e.preventDefault();const err=document.getElementById("formError");err.style.display="none";const chosen=selectedMonths();if(!chosen.length){err.textContent="Please select at least one month.";err.style.display="block";return}const method=val("method");if(!method){err.textContent="Please select a payment method.";err.style.display="block";return}if(method==="UPI / Bank Transfer"&&!val("reference")){err.textContent="Enter a transaction reference if a transfer has already been made. Do not enter fake details.";err.style.display="block";return}
+const tuition=num("monthlyFee")*chosen.length;const gross=tuition+num("admissionFee")+num("examFee")+num("computerFee")+num("otherFee")+num("lateFine");const discount=Math.min(num("discount"),gross);const receiptNo="NAS-MF-"+new Date().toISOString().slice(0,10).replaceAll("-","")+"-"+Math.floor(1000+Math.random()*9000);
+const data={receiptNo,date:dateTime(),studentId:val("studentId"),name:val("studentName"),roll:val("roll"),className:val("className"),year:val("academicYear"),guardian:val("guardian"),months:chosen,method,reference:val("reference"),remarks:val("remarks"),tuition,admissionFee:num("admissionFee"),examFee:num("examFee"),computerFee:num("computerFee"),otherFee:num("otherFee"),lateFine:num("lateFine"),discount,total:gross-discount,status:"DRAFT — NOT VERIFIED"};
+records.set(receiptNo,data);showReceipt(data);document.getElementById("lookupReceipt").value=receiptNo;document.getElementById("lookupStudent").value=data.studentId;});
+document.getElementById("lookupForm").addEventListener("submit",e=>{e.preventDefault();const receipt=val("lookupReceipt");const student=val("lookupStudent");const data=records.get(receipt);const err=document.getElementById("lookupError");if(!data||data.studentId.toLowerCase()!==student.toLowerCase()){err.textContent="No matching draft receipt found in this browser session. This demo does not store receipts online.";err.style.display="block";return}err.style.display="none";showReceipt(data)});
+document.getElementById("printBtn").addEventListener("click",()=>window.print());
+document.getElementById("backBtn").addEventListener("click",()=>{document.getElementById("receiptArea").style.display="none";document.getElementById("payment").classList.add("active");document.querySelectorAll(".tabpanel").forEach(p=>{if(p.id!=="payment")p.classList.remove("active")});document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab==="payment"));window.scrollTo({top:0,behavior:"smooth"})});
+document.getElementById("resetBtn").addEventListener("click",()=>{document.getElementById("feeForm").reset();document.querySelectorAll('input[name="months"]').forEach(x=>x.checked=false);updateTotals();document.getElementById("formError").style.display="none";document.getElementById("createdMessage").style.display="none";document.getElementById("receiptArea").style.display="none"});
+updateTotals();
+</script>
+</body>
+</html>
